@@ -53,7 +53,8 @@ jobs:
           auth-type: SERVICE_PRINCIPAL
           client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_8E0CD8C245324492A0ADB48AFEFE411A }}
           tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_269FD858E7154FD0AF4B5B36846D76DA }}
-          client-secret: ${{ secrets.AZUREAPPSERVICE_CLIENTSECRET }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_F6BFD51AAAFE41309ACCEE98E1280EA3 }}
+
 
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v3
@@ -61,3 +62,4 @@ jobs:
           app-name: 'PaulHaefeliv2'
           slot-name: 'Production'
           package: .
+
