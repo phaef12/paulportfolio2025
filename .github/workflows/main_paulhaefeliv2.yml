@@ -12,6 +12,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
 
     steps:
       - uses: actions/checkout@v4
@@ -36,6 +38,8 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     needs: build
+    permissions:
+      contents: read   # remove id-token: write
 
     steps:
       - name: Download artifact from build job
@@ -43,13 +47,13 @@ jobs:
         with:
           name: node-app
 
-      - name: Login to Azure using Service Principal
+      - name: Login to Azure
         uses: azure/login@v2
         with:
           auth-type: SERVICE_PRINCIPAL
           client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_8E0CD8C245324492A0ADB48AFEFE411A }}
           tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_269FD858E7154FD0AF4B5B36846D76DA }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_F6BFD51AAAFE41309ACCEE98E1280EA3 }}
+          client-secret: ${{ secrets.AZUREAPPSERVICE_CLIENTSECRET }}
 
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v3
@@ -57,4 +61,3 @@ jobs:
           app-name: 'PaulHaefeliv2'
           slot-name: 'Production'
           package: .
-
