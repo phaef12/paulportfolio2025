@@ -33,7 +33,17 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: node-app
-          path: .
+          path: |
+            package.json
+            package-lock.json
+            next.config.ts
+            next-env.d.ts
+            public
+            src
+            postcss.config.js
+            postcss.config.mjs
+            tailwind.config.js
+            tsconfig.json
 
   deploy:
     runs-on: ubuntu-latest
@@ -64,3 +74,4 @@ jobs:
           package: .
 
           
+
