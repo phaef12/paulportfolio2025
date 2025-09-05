@@ -12,6 +12,7 @@ const taglines = [
   "Now with fewer deadlocks",
   "High availability, low latency",
   "Oh hi, Mark",
+  "Now deploying from github",
 ];
 
 export default function Taglines() {
