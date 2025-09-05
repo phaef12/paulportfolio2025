@@ -34,13 +34,12 @@ jobs:
 
       - name: Prepare runtime package
         run: |
-          mkdir deploy
-          # Copy build output and runtime files
-          cp -R .next public next.config.ts tsconfig.json package.json package-lock.json deploy/
-          # Include src folder only if you have API routes
-          cp -R src deploy/
-          cd deploy
-          # Create a zip file of the deployment package
+          # Copy all runtime files directly to deploy root
+          mkdir deploy_temp
+          cp -R .next public package.json package-lock.json next.config.ts tsconfig.json deploy_temp/
+          # Include src only if using API routes
+          cp -R src deploy_temp/
+          cd deploy_temp
           zip -r ../node-app.zip ./*
           cd ..
           echo "✔️ Deployment zip created"
@@ -76,7 +75,7 @@ jobs:
         with:
           app-name: 'PaulHaefeliv2'
           slot-name: 'Production'
-          package: node-app.zip    # <-- use the zip artifact
+          package: node-app.zip
         env:
           SCM_DO_BUILD_DURING_DEPLOYMENT: false
           WEBSITE_RUN_FROM_PACKAGE: 1
