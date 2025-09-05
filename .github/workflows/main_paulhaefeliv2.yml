@@ -53,6 +53,7 @@ jobs:
         with:
           auth-type: IDENTITY
           client-id: ${{ secrets.AZURE_MI_CLIENTID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
@@ -61,3 +62,4 @@ jobs:
           app-name: 'PaulHaefeliv2'
           slot-name: 'Production'
           package: .
+
