@@ -32,16 +32,19 @@ jobs:
       - name: Prune dev dependencies
         run: npm prune --production
 
+      - name: Prepare runtime package
+        run: |
+          mkdir deploy
+          cp -R .next public node_modules package.json package-lock.json next.config.js deploy/
+          # optional: add server.js if using custom server
+          cd deploy
+          echo "✔️ Deployment package prepared"
+
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
           name: node-app
-          path: |
-            .next
-            public
-            node_modules
-            package.json
-            next.config.js
+          path: deploy
 
   deploy:
     runs-on: ubuntu-latest
@@ -70,5 +73,6 @@ jobs:
           app-name: 'PaulHaefeliv2'
           slot-name: 'Production'
           package: .
+
 
 
