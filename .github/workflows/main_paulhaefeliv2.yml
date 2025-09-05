@@ -62,4 +62,3 @@ jobs:
           app-name: 'PaulHaefeliv2'
           slot-name: 'Production'
           package: .
-
