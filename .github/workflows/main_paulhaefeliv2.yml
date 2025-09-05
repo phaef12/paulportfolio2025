@@ -32,7 +32,10 @@ jobs:
       - name: Prepare runtime package
         run: |
           mkdir deploy
+          # Include only runtime files for deployment
           cp -R .next public next.config.ts deploy/
+          # Include src folder only if you have API routes
+          cp -R src deploy/
           cd deploy
           echo "✔️ Deployment package prepared"
 
@@ -46,7 +49,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     permissions:
-      id-token: write # Required for requesting the JWT
+      id-token: write # Required for JWT
       contents: read # Required for actions/checkout
 
     steps:
@@ -67,7 +70,7 @@ jobs:
         with:
           app-name: 'PaulHaefeliv2'
           slot-name: 'Production'
-          package: .
+          package: deploy/
         env:
           SCM_DO_BUILD_DURING_DEPLOYMENT: false
-
+          WEBSITE_RUN_FROM_PACKAGE: 1
