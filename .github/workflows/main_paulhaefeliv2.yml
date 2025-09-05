@@ -35,7 +35,7 @@ jobs:
       - name: Prepare runtime package
         run: |
           mkdir deploy
-          cp -R .next public node_modules package.json package-lock.json next.config.js deploy/
+          cp -R .next public node_modules package.json package-lock.json next.config.ts deploy/
           # optional: add server.js if using custom server
           cd deploy
           echo "✔️ Deployment package prepared"
@@ -73,6 +73,7 @@ jobs:
           app-name: 'PaulHaefeliv2'
           slot-name: 'Production'
           package: .
+
 
 
 
