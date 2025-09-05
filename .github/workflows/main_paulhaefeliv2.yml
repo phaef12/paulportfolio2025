@@ -32,8 +32,10 @@ jobs:
       - name: Prepare runtime package
         run: |
           mkdir deploy
-          # Copy build output and source files
-          cp -R .next public src package.json package-lock.json next.config.ts deploy/
+          # Copy only what’s needed to run the prebuilt app
+          cp -R .next public package.json package-lock.json next.config.ts deploy/
+          # Optional: include src if you rely on server-side code at runtime
+          cp -R src deploy/
           cd deploy
           echo "✔️ Deployment package prepared"
 
@@ -69,3 +71,5 @@ jobs:
           app-name: 'PaulHaefeliv2'
           slot-name: 'Production'
           package: .
+        env:
+          SCM_DO_BUILD_DURING_DEPLOYMENT: false
