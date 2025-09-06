@@ -58,6 +58,9 @@ jobs:
           tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID }}
           subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID }}
 
+      - name: Wait for App Service to settle
+        run: sleep 15
+  
       - name: 'Deploy to Azure Web App'
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v3
@@ -65,3 +68,4 @@ jobs:
           app-name: 'PaulHaefeliv2'
           slot-name: 'Production'
           package: .
+
